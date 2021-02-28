@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:gradient="clr-namespace:Syncfusion.XForms.Graphics;assembly=Syncfusion.Core.XForms" xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+             x:Class="ReaderXF.MainPage">
+
+    <Grid BackgroundColor="{AppThemeBinding Dark=#333, Light=#FFF}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="1"  Text="Рекомендации" HorizontalOptions="Center" FontSize="17" TextColor="{AppThemeBinding Dark=#FFF, Light=#000}"/>
+        <Grid Grid.Row="1" BackgroundColor="#1111" Margin="0,23,0,0">
+            <CarouselView x:Name="carusel" PeekAreaInsets="30">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="80"/>
+                                <RowDefinition/>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+                            <Image Source="{Binding Image}" Grid.RowSpan="3" Aspect="AspectFill"/>
+                            <gradient:SfGradientView Grid.Row="0" Grid.RowSpan="2">
+                                <gradient:SfGradientView.BackgroundBrush>
+                                    <gradient:SfLinearGradientBrush StartPoint="0,1" EndPoint="0,0">
+                                        <gradient:SfLinearGradientBrush.GradientStops>
+                                            <gradient:SfGradientStop Color="#05000000" Offset="0.0" />
+                                            <gradient:SfGradientStop Color="#FF000000" Offset="1.0" />
+                                        </gradient:SfLinearGradientBrush.GradientStops>
+                                    </gradient:SfLinearGradientBrush>
+                                </gradient:SfGradientView.BackgroundBrush>
+                            </gradient:SfGradientView>
+                            <Label Text="{Binding name}" TextColor="white" FontSize="30" Margin="5"/>
+                            <Button Text="Читать" Background="#444" Margin="5" Command="{Binding Open}" Grid.Row="2"/>
+                        </Grid>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+            <ActivityIndicator IsRunning="true" HorizontalOptions="Center" VerticalOptions="Center" x:Name="loadingRec" Color="Gray"/>
+        </Grid>
+        <Label Grid.Row="2" Text="Полный список произведений" FontSize="17" TextColor="{AppThemeBinding Dark=#FFF, Light=#000}" HorizontalOptions="Center"/>
+        <ListView Margin="0,23,0,0" x:Name="BooksList" Grid.Row="2" ItemSelected="BooksList_ItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <Grid>
+                                <Image Source="{Binding Image}" Aspect="AspectFill"/>
+                                <gradient:SfGradientView Grid.Row="0">
+                                    <gradient:SfGradientView.BackgroundBrush>
+                                        <gradient:SfLinearGradientBrush StartPoint="1,0" EndPoint="0,0">
+                                            <gradient:SfLinearGradientBrush.GradientStops>
+                                                <gradient:SfGradientStop Color="#05000000" Offset="0.0" />
+                                                <gradient:SfGradientStop Color="#FF000000" Offset="1.0" />
+                                            </gradient:SfLinearGradientBrush.GradientStops>
+                                        </gradient:SfLinearGradientBrush>
+                                    </gradient:SfGradientView.BackgroundBrush>
+                                </gradient:SfGradientView>
+                                <Label Text="{Binding name}" TextColor="white" FontSize="20" Margin="5"/>
+                            </Grid>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ActivityIndicator Grid.Row="2" IsRunning="true" HorizontalOptions="Center" VerticalOptions="Center" x:Name="loadingAll" Color="Gray"/>
+        <Label FontSize="17" Text="Выбор типа текста" TextColor="{AppThemeBinding Dark=#FFF, Light=#000}"/>
+        <StackLayout Spacing="12" Margin="0,23,0,0">
+
+            <input:RadioButtonGroupView x:Name="mode" SelectedIndex="0">
+                <input:RadioButton Text="Режим подсветки" IsChecked="True" CircleColor="Blue" Color="Blue"  TextColor="{AppThemeBinding Dark=#FFF, Light=#000}"/>
+                <input:RadioButton Text="Обычный режим" CircleColor="Blue" Color="Blue" TextColor="{AppThemeBinding Dark=#FFF, Light=#000}"/>
+                <input:RadioButton Text="Режим быстрого чтения" CircleColor="Blue" Color="Blue" TextColor="{AppThemeBinding Dark=#FFF, Light=#000}"/>
+            </input:RadioButtonGroupView>
+
+        </StackLayout>
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ReaderXF.ReadPage" >
+    <ContentPage.Content>
+        <Grid  BackgroundColor="{AppThemeBinding Dark=#333, Light=#FFF}">
+            <ActivityIndicator IsRunning="true" HorizontalOptions="Center" VerticalOptions="Center" x:Name="loading" Color="Gray"/>
+            <ScrollView>
+                <Label x:Name="SL"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" TextColor="{AppThemeBinding Dark=#FFF, Light=#000}"/>
+            </ScrollView>
+            <Grid x:Name="mode3Grid" IsVisible="false">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label FontSize="30" x:Name="UpText" TextColor="Gray" HorizontalOptions="Center" VerticalOptions="End"/>
+                <Label FontSize="45" x:Name="CenterText" Grid.Row="1" TextColor="{AppThemeBinding Dark=#FFF, Light=#000}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Label FontSize="30" x:Name="DownText" Grid.Row="2" TextColor="Gray" HorizontalOptions="Center" VerticalOptions="Start"/>
+            </Grid>
+            <BoxView x:Name="mode3Stop" BackgroundColor="Transparent" IsVisible="false">
+                <BoxView.GestureRecognizers>
+                    <SwipeGestureRecognizer Direction="Up" Swiped="OnUpSwiped"/>
+                    <SwipeGestureRecognizer Direction="Down" Swiped="OnDownSwiped"/>
+                    <DragGestureRecognizer DragStarting="StartHold" DropCompleted="StopHold"/>
+                </BoxView.GestureRecognizers>
+            </BoxView>
+
+            <Button HorizontalOptions="End" Text="+" VerticalOptions="End" Clicked="FontPlus" BackgroundColor="{AppThemeBinding Dark=#222, Light=#AAA}" TextColor="{AppThemeBinding Dark=#FFF, Light=#000}"/>
+            <Button HorizontalOptions="Start" Text="-" VerticalOptions="End" Clicked="FontMinus" BackgroundColor="{AppThemeBinding Dark=#222, Light=#AAA}" TextColor="{AppThemeBinding Dark=#FFF, Light=#000}"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
